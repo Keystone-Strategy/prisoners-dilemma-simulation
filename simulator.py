@@ -126,7 +126,7 @@ def run_tournament(agents, randomize_round_num=True):
         else:
             match_rounds = rounds
 
-        (a1_score, a2_score) = run_match(a1, a2, rounds, payoffs)
+        (a1_score, a2_score) = run_match(a1, a2, match_rounds, payoffs)
 
         score_dict[a1.name] += a1_score
         score_dict[a2.name] += a2_score
