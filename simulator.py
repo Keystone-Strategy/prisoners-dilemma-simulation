@@ -1,4 +1,4 @@
-from constants import agents_dir, payoffs, rounds
+from constants import agents_dir, payoffs, rounds, min_rounds, max_rounds
 
 import itertools
 
@@ -6,6 +6,8 @@ from os import listdir
 from os.path import isfile, join
 
 import importlib
+
+import random
 
 
 def collect_agents():
@@ -101,7 +103,7 @@ def run_match(agent1, agent2, rounds, payoffs):
     return agent1_score, agent2_score
 
 
-def run_tournament(agents):
+def run_tournament(agents, randomize_round_num=True):
     """
     Runs a tournament with all the agents.
     """
@@ -118,6 +120,12 @@ def run_tournament(agents):
         score_dict[a.name] = 0
 
     for (a1, a2) in itertools.product(agents, agents):
+
+        if randomize_round_num:
+            match_rounds = random.randint(min_rounds, max_rounds)
+        else:
+            match_rounds = rounds
+
         (a1_score, a2_score) = run_match(a1, a2, rounds, payoffs)
 
         score_dict[a1.name] += a1_score
